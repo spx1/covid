@@ -14,7 +14,7 @@ def moving_average(data: List[int],period: int) -> List[float]:
         ma.append(None)
 
     for i in range(min(period,len(data)),len(data)):
-        ma.append(sum(data[i:i+period]) / period)   
+        ma.append(sum(data[i-period:i]) / period)   
     return ma
 
 def get_date_from_filename(path: str) -> datetime.date:
@@ -61,10 +61,11 @@ if __name__ == "__main__":
     
     
     fig,ax1 = pyp.subplots()
-    color = ["tab:red","tab:blue"]
+    color = ["tab:red","tab:blue","tab:green"]
     ax1.set_xlabel('date')
     ax1.set_ylabel('Total Cases',color=color[0])
     ax1.plot(dates,counts,color=color[0])
+    ax1.plot(dates,moving_average(diffs,3),color=color[2])
     ax2 = ax1.twinx()
     ax2.set_ylabel('Rel New Cases',color=color[1])
     ax2.plot(dates,moving_average(rdiffs,3),color=color[1])
