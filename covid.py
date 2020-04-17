@@ -8,8 +8,8 @@ from typing import Tuple,List,Dict,Iterable,Optional
 DATA_DIR='covid_data\\csse_covid_19_data\\csse_covid_19_daily_reports'
 DATA_FILE='*.csv'
 
-def moving_average(data: List[int],period: int) -> List[float]:
-    ma : List[float] = []
+def moving_average(data: List,period: int) -> List[Optional[float]]:
+    ma : List[Optional[float]] = []
     for i in range(0, len(data)):
         val = sum(data[i-period:i])/period
         ma.append( val if i >= period else None )
